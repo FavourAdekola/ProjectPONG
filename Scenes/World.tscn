@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scenes/ball.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Scenes/camera.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/goal.wav" type="AudioStream" id=11]
 [ext_resource path="res://Assets/light.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Star.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.76923, 86 )
@@ -50,6 +51,20 @@ glow_bicubic_upscale = true
 glow_high_quality = true
 adjustment_enabled = true
 adjustment_brightness = 1.1
+
+[sub_resource type="ParticlesMaterial" id=3]
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_box_extents = Vector3( 1, 600, 1 )
+flag_disable_z = true
+spread = 90.0
+gravity = Vector3( 98, 0, 0 )
+initial_velocity = 100.18
+initial_velocity_random = 0.66
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 23.7
+scale = 0.01
 
 [node name="World" type="Node2D"]
 
@@ -265,6 +280,26 @@ energy = 1.4
 mode = 2
 shadow_color = Color( 1, 1, 1, 0.172549 )
 shadow_gradient_length = 75.1
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 5.63741, 312.819 )
+scale = Vector2( 3.96787, 0.528789 )
+amount = 100
+lifetime = 2.0
+preprocess = 1.0
+explosiveness = 0.05
+process_material = SubResource( 3 )
+texture = ExtResource( 13 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+position = Vector2( 1100, 300 )
+scale = Vector2( -4, 0.5 )
+amount = 100
+lifetime = 2.0
+preprocess = 1.0
+explosiveness = 0.05
+process_material = SubResource( 3 )
+texture = ExtResource( 13 )
 
 [connection signal="body_entered" from="Walls/LWall/P1Score" to="Walls" method="_on_P1Score_body_entered"]
 [connection signal="body_entered" from="Walls/RWall/P2Score" to="Walls" method="_on_P2Score_body_entered"]
