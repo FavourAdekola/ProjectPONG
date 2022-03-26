@@ -1,12 +1,19 @@
 extends KinematicBody2D
 
 onready var anim = $AnimationPlayer
+onready var dashTimer = $dashTimer
+onready var cooldown = $cooldownTimer
 
 export var canCurve = true
 
 var speed = 500
-var acceleration = 50
-var friction = 10
+var acceleration = 100
+var friction = 20
+
+var dashSpeed = 700
+var dashLength = 0.1
+var isDashing : bool = false
+var canDash : bool = true
 
 var mov_direction = Vector2.ZERO
 var velocity = Vector2.ZERO
@@ -26,6 +33,15 @@ func _process(_delta):
 		$curveShot/Particles2D.set_emitting(true)
 		anim.play("curveShot")
 		print(canCurve)
+	if Input.is_action_just_pressed("dash2") and canDash and mov_direction != Vector2.ZERO:
+		dash()
+	
+func dash():
+	isDashing = true
+	canDash = false
+	acceleration = dashSpeed * 10
+	speed = dashSpeed*2
+	dashTimer.start(dashLength)
 	
 func move():
 	mov_direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -51,3 +67,14 @@ func _on_Area2D_body_entered(body):
 			body.add_force(Vector2(0,body.global_position.y - global_position.y * 10),Vector2(0,body.global_position.y - global_position.y * -10))
 	elif body.name == "ball":
 		$hit.play()
+
+
+func _on_dashTimer_timeout():
+	isDashing = false
+	cooldown.start(dashLength*10)
+	acceleration = 50
+	speed = 500
+
+
+func _on_cooldownTimer_timeout():
+	canDash = true

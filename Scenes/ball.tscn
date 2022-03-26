@@ -4,13 +4,13 @@
 [ext_resource path="res://Scripts/ball.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/Line2D.gd" type="Script" id=3]
 
-[sub_resource type="PhysicsMaterial" id=7]
-bounce = 0.75
+[sub_resource type="PhysicsMaterial" id=10]
+bounce = 0.3
 
 [sub_resource type="CanvasItemMaterial" id=5]
 
-[sub_resource type="CircleShape2D" id=6]
-radius = 35.0
+[sub_resource type="CircleShape2D" id=11]
+radius = 36.0
 
 [sub_resource type="Curve" id=9]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
@@ -23,19 +23,14 @@ colors = PoolColorArray( 1, 1, 1, 0, 0, 0, 0.666667, 0.647059, 0, 0, 0.666667, 0
 position = Vector2( 300, 0 )
 collision_layer = 2
 collision_mask = 2
-mass = 0.816326
-physics_material_override = SubResource( 7 )
-gravity_scale = 9.0
+mass = 200.0
+physics_material_override = SubResource( 10 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 material = SubResource( 5 )
-scale = Vector2( 0.75, 0.75 )
-shape = SubResource( 6 )
-
-[node name="Sprite" type="Sprite" parent="CollisionShape2D"]
-scale = Vector2( 0.11, 0.11 )
-texture = ExtResource( 1 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 11 )
 
 [node name="Node" type="Node" parent="."]
 
@@ -49,5 +44,9 @@ targetPath = NodePath("../..")
 trailLength = 20
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.05625, 0.05625 )
+texture = ExtResource( 1 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

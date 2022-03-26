@@ -25,7 +25,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 27.0
+radius = 20.0
 
 [node name="Player2" type="KinematicBody2D"]
 scale = Vector2( 2, 2 )
@@ -34,6 +34,7 @@ collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="curveShot" parent="." instance=ExtResource( 3 )]
@@ -62,6 +63,14 @@ stream = ExtResource( 5 )
 [node name="curve" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 
+[node name="dashTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="cooldownTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="dashTimer" to="." method="_on_dashTimer_timeout"]
+[connection signal="timeout" from="cooldownTimer" to="." method="_on_cooldownTimer_timeout"]
 
 [editable path="curveShot"]

@@ -7,7 +7,7 @@ func _on_start_game_pressed():
 
 
 func _on_Extra_pressed():
-	get_tree().change_scene()
+	get_tree().change_scene("res://Scenes/extras.tscn")
 
 
 func _on_quit_game_pressed():
