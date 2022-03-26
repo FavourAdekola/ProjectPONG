@@ -1,3 +1,73 @@
-[gd_scene format=2]
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scenes/BallScript.gd" type="Script" id=1]
+[ext_resource path="res://Assets/ball.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 12.875, 299 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 512, 13.5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10, 299.625 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 511.75, 14.75 )
+
+[sub_resource type="PhysicsMaterial" id=7]
+
+[sub_resource type="CanvasItemMaterial" id=5]
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 35.0
 
 [node name="World" type="Node2D"]
+
+[node name="background" type="ColorRect" parent="."]
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 1023.0
+margin_bottom = 598.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="wall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
+position = Vector2( -13.125, 299 )
+shape = SubResource( 1 )
+
+[node name="wall2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
+position = Vector2( 512, -13.5 )
+shape = SubResource( 2 )
+
+[node name="wall3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall3"]
+position = Vector2( 1034, 299.375 )
+shape = SubResource( 3 )
+
+[node name="wall4" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall4"]
+position = Vector2( 511.25, 614 )
+shape = SubResource( 4 )
+
+[node name="ball" type="RigidBody2D" parent="."]
+mass = 8.16327
+physics_material_override = SubResource( 7 )
+gravity_scale = 9.0
+angular_velocity = 10.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ball"]
+material = SubResource( 5 )
+position = Vector2( 329, 309 )
+shape = SubResource( 6 )
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="ball/CollisionShape2D"]
+position = Vector2( -2, 0 )
+scale = Vector2( 0.113737, 0.111002 )
+texture = ExtResource( 2 )
