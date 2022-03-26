@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var anim = $AnimationPlayer
+onready var anim = $Node2D/AnimationPlayer
 
 export var canSwing = true
 
