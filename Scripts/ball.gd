@@ -12,4 +12,11 @@ func _ready():
 
 
 func _process(delta):
-	set_applied_torque(0)
+	
+	if (applied_force.y > 30 and applied_force.y != 0):
+		set_applied_force(Vector2(0,applied_force.y - 15))
+	elif(applied_force.y < -30 and applied_force.y != 0):
+		set_applied_force(Vector2(0,applied_force.y + 15))
+	elif (applied_force.y > -30 and applied_force.y < 30):
+		set_applied_force(Vector2(0,0))
+

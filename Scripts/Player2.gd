@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 onready var anim = $AnimationPlayer
 
-export var curve = true
+export var canCurve = true
 
 var speed = 500
 var acceleration = 50
@@ -10,6 +10,7 @@ var friction = 10
 
 var mov_direction = Vector2.ZERO
 var velocity = Vector2.ZERO
+
 
 
 
@@ -21,20 +22,18 @@ func _ready():
 
 func _process(_delta):
 	move()
-	if (Input.is_action_just_pressed("swing2") and curve):
+	if (Input.is_action_just_pressed("swing2") and canCurve):
 		$curveShot/Particles2D.set_emitting(true)
-		anim.play("swing")
-	
-	pass
+		anim.play("curveShot")
+		print(canCurve)
 	
 func move():
-	
 	mov_direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	mov_direction.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	
 	mov_direction = mov_direction.normalized()
 	
-	if mov_direction != Vector2.ZERO:
+	if mov_direction != Vector2.ZERO: 
 		velocity += mov_direction * acceleration
 		velocity = velocity.clamped(speed)
 	else:
@@ -42,3 +41,11 @@ func move():
 	
 	velocity = move_and_slide(velocity)
 
+
+func _on_Area2D_body_entered(body):
+	if body.name == "ball" and !canCurve:
+		if mov_direction.y > 0:
+			body.add_force(Vector2(0,body.global_position.y - global_position.y * 10),Vector2(0,body.global_position.y - global_position.y * 10))
+		if mov_direction.y <= 0:
+			body.add_force(Vector2(0,body.global_position.y - global_position.y * 10),Vector2(0,body.global_position.y - global_position.y * -10))
+		print("HIT")
