@@ -1,71 +1,189 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/ball.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Player2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/blocks.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Goals.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/ScoreBoard.gd" type="Script" id=6]
+[ext_resource path="res://Assets/fonts/bigs.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Assets/fonts/smalls.tres" type="Theme" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12.875, 299 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 512, 13.5 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 10, 299.625 )
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 511.75, 14.75 )
+extents = Vector2( 3.76923, 86 )
 
 [node name="World" type="Node2D"]
 
-[node name="background" type="ColorRect" parent="."]
-margin_left = -1.0
-margin_top = -1.0
-margin_right = 1023.0
-margin_bottom = 598.0
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1050.0
+margin_bottom = 650.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="wall" type="StaticBody2D" parent="."]
-collision_layer = 3
-collision_mask = 3
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 26.5968, 16.8149 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
-position = Vector2( -13.125, 299 )
+[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+script = ExtResource( 6 )
+
+[node name="ColorRect" type="ColorRect" parent="Control/CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -87.0
+margin_right = 13.0
+margin_bottom = 100.0
+color = Color( 0.596078, 0.580392, 1, 1 )
+
+[node name="Label" type="Label" parent="Control/CanvasLayer/ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -32.5
+margin_right = 20.0
+margin_bottom = 32.5
+theme = ExtResource( 8 )
+custom_fonts/font = ExtResource( 7 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="ColorRect2" type="ColorRect" parent="Control/CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 13.0
+margin_right = 113.0
+margin_bottom = 100.0
+color = Color( 0.513726, 0.192157, 0.266667, 1 )
+
+[node name="Label" type="Label" parent="Control/CanvasLayer/ColorRect2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -32.5
+margin_right = 20.0
+margin_bottom = 32.5
+theme = ExtResource( 8 )
+custom_fonts/font = ExtResource( 7 )
+text = "0"
+align = 1
+
+[node name="Walls" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="LWall" type="Node2D" parent="Walls"]
+position = Vector2( 40, 0 )
+scale = Vector2( -13, 1 )
+
+[node name="P1Score" type="Area2D" parent="Walls/LWall"]
+position = Vector2( 10.8462, 0.000101774 )
+rotation = -3.14159
+scale = Vector2( 1.0292, -1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LWall/P1Score"]
+position = Vector2( 5.53846, 312 )
 shape = SubResource( 1 )
 
-[node name="wall2" type="StaticBody2D" parent="."]
+[node name="walls" parent="Walls/LWall" instance=ExtResource( 4 )]
+position = Vector2( 10, 113 )
+scale = Vector2( 1, 11.28 )
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
-position = Vector2( 512, -13.5 )
-shape = SubResource( 2 )
-
-[node name="wall3" type="StaticBody2D" parent="."]
+[node name="walls2" parent="Walls/LWall" instance=ExtResource( 4 )]
+position = Vector2( 10, 487 )
+scale = Vector2( 1, 11.28 )
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wall3"]
-position = Vector2( 1034, 299.375 )
-shape = SubResource( 3 )
+[node name="walls3" parent="Walls/LWall" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 3.04697, 305.949 )
+scale = Vector2( 0.304615, 8.44734 )
+collision_layer = 4
+collision_mask = 4
 
-[node name="wall4" type="StaticBody2D" parent="."]
+[node name="RWall" type="Node2D" parent="Walls"]
+position = Vector2( 980, 0 )
+scale = Vector2( 13, 1 )
+
+[node name="P2Score" type="Area2D" parent="Walls/RWall"]
+position = Vector2( -0.230782, 0 )
+scale = Vector2( 1.05846, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RWall/P2Score"]
+position = Vector2( 5.53846, 312 )
+shape = SubResource( 1 )
+
+[node name="walls" parent="Walls/RWall/P2Score" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 3.1689, 296.938 )
+scale = Vector2( 0.316923, 9.76 )
+collision_layer = 4
+collision_mask = 4
+
+[node name="walls" parent="Walls/RWall" instance=ExtResource( 4 )]
+position = Vector2( 10, 113 )
+scale = Vector2( 1, 11.28 )
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wall4"]
-position = Vector2( 511.25, 614 )
-shape = SubResource( 4 )
+[node name="walls2" parent="Walls/RWall" instance=ExtResource( 4 )]
+position = Vector2( 10, 487 )
+scale = Vector2( 1, 11.28 )
+collision_layer = 3
+collision_mask = 3
+
+[node name="TandBWall" type="Node2D" parent="Walls"]
+
+[node name="walls" parent="Walls/TandBWall" instance=ExtResource( 4 )]
+position = Vector2( 512, -20 )
+scale = Vector2( 52, 5 )
+collision_layer = 2
+collision_mask = 3
+
+[node name="walls2" parent="Walls/TandBWall" instance=ExtResource( 4 )]
+position = Vector2( 512, 620 )
+scale = Vector2( 52, 5 )
+collision_layer = 2
+collision_mask = 3
+
+[node name="walls" parent="Walls" instance=ExtResource( 4 )]
+position = Vector2( 525.435, 66.2862 )
+scale = Vector2( 10.52, 3.72 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="walls2" parent="Walls" instance=ExtResource( 4 )]
+position = Vector2( 525.435, 533.286 )
+scale = Vector2( 10.52, 3.72 )
+collision_layer = 5
+collision_mask = 5
 
 [node name="ball" parent="." instance=ExtResource( 1 )]
-position = Vector2( 516, 286 )
+position = Vector2( 512, 300 )
+collision_mask = 3
 mass = 8.16327
 gravity_scale = 0.0
 linear_velocity = Vector2( 0.001, 0 )
 
 [node name="Player1" parent="." instance=ExtResource( 2 )]
-position = Vector2( 117, 170 )
+position = Vector2( 100, 300 )
+scale = Vector2( 1.49845, 1.5 )
+collision_layer = 6
+collision_mask = 5
 
 [node name="Player2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 885, 267 )
-scale = Vector2( -2, 2 )
+position = Vector2( 950, 300 )
+scale = Vector2( 1.5, 1.5 )
+collision_layer = 6
+collision_mask = 5
+
+[connection signal="body_entered" from="Walls/LWall/P1Score" to="Walls" method="_on_P1Score_body_entered"]
+[connection signal="body_entered" from="Walls/RWall/P2Score" to="Walls" method="_on_P2Score_body_entered"]
