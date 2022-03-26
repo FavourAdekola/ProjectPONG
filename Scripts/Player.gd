@@ -44,8 +44,10 @@ func move():
 
 func _on_Area2D_body_entered(body):
 	if body.name == "ball" and !canCurve:
+		$curve.play()
 		if mov_direction.y > 0:
 			body.add_force(Vector2(0,body.global_position.y - global_position.y * 10),Vector2(0,body.global_position.y - global_position.y * 10))
 		if mov_direction.y <= 0:
 			body.add_force(Vector2(0,body.global_position.y - global_position.y * 10),Vector2(0,body.global_position.y - global_position.y * -10))
-		print("HIT")
+	elif body.name == "ball":
+		$hit.play()

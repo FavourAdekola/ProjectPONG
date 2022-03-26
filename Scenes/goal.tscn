@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="ParticlesMaterial" id=1]
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_box_extents = Vector3( 1, 20, 1 )
+flag_disable_z = true
+spread = 85.59
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 80.0
+angular_velocity = 80.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.0
+scale_random = 1.0
+
+[node name="goal" type="Node2D"]
+
+[node name="Particles2D" type="Particles2D" parent="."]
+emitting = false
+amount = 800
+one_shot = true
+explosiveness = 0.63
+process_material = SubResource( 1 )

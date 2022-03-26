@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/ball.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://Scripts/ScoreBoard.gd" type="Script" id=6]
 [ext_resource path="res://Assets/fonts/bigs.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Assets/fonts/smalls.tres" type="Theme" id=8]
+[ext_resource path="res://Scenes/goal.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/camera.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/goal.wav" type="AudioStream" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.76923, 86 )
@@ -90,6 +93,10 @@ scale = Vector2( 1.0292, -1 )
 position = Vector2( 5.53846, 312 )
 shape = SubResource( 1 )
 
+[node name="goal" parent="Walls/LWall/P1Score" instance=ExtResource( 9 )]
+position = Vector2( 9.30107, 306.884 )
+scale = Vector2( 0.3, 3 )
+
 [node name="walls" parent="Walls/LWall" instance=ExtResource( 4 )]
 position = Vector2( 10, 113 )
 scale = Vector2( 1, 11.28 )
@@ -127,6 +134,10 @@ position = Vector2( 3.1689, 296.938 )
 scale = Vector2( 0.316923, 9.76 )
 collision_layer = 4
 collision_mask = 4
+
+[node name="goal" parent="Walls/RWall/P2Score" instance=ExtResource( 9 )]
+position = Vector2( 2.46942, 303.928 )
+scale = Vector2( -0.3, 3 )
 
 [node name="walls" parent="Walls/RWall" instance=ExtResource( 4 )]
 position = Vector2( 10, 113 )
@@ -166,6 +177,16 @@ scale = Vector2( 10.52, 3.72 )
 collision_layer = 5
 collision_mask = 5
 
+[node name="walls3" parent="Walls" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 520, 300 )
+scale = Vector2( 1, 40 )
+collision_layer = 4
+collision_mask = 4
+
+[node name="goal" type="AudioStreamPlayer" parent="Walls"]
+stream = ExtResource( 11 )
+
 [node name="ball" parent="." instance=ExtResource( 1 )]
 position = Vector2( 512, 300 )
 collision_mask = 3
@@ -184,6 +205,9 @@ position = Vector2( 950, 300 )
 scale = Vector2( 1.5, 1.5 )
 collision_layer = 6
 collision_mask = 5
+
+[node name="camera" parent="." instance=ExtResource( 10 )]
+current = true
 
 [connection signal="body_entered" from="Walls/LWall/P1Score" to="Walls" method="_on_P1Score_body_entered"]
 [connection signal="body_entered" from="Walls/RWall/P2Score" to="Walls" method="_on_P2Score_body_entered"]

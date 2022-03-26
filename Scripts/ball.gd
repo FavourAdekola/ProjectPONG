@@ -20,7 +20,7 @@ func _process(delta):
 		set_applied_force(Vector2(0,0))
 
 func reset_pos(player):
-	get_tree().change_scene("res://Scenes/World.tscn")
+	$Timer.start(1)
 	match player:
 		"p1":
 			set_applied_force(Vector2(-10,0))
@@ -31,3 +31,7 @@ func reset_pos(player):
 			set_applied_force(Vector2(10,0))
 			moving = false
 			pass
+
+
+func _on_Timer_timeout():
+	get_tree().change_scene("res://Scenes/World.tscn")

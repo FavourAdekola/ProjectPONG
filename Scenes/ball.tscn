@@ -47,3 +47,7 @@ gradient = SubResource( 8 )
 script = ExtResource( 3 )
 targetPath = NodePath("../..")
 trailLength = 20
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
