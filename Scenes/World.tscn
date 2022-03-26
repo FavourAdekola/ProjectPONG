@@ -1,6 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Player2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Player2.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12.875, 299 )
@@ -24,27 +27,48 @@ margin_bottom = 598.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="wall" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
 position = Vector2( -13.125, 299 )
 shape = SubResource( 1 )
 
 [node name="wall2" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
 position = Vector2( 512, -13.5 )
 shape = SubResource( 2 )
 
 [node name="wall3" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wall3"]
 position = Vector2( 1034, 299.375 )
 shape = SubResource( 3 )
 
 [node name="wall4" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wall4"]
 position = Vector2( 511.25, 614 )
 shape = SubResource( 4 )
 
 [node name="ball" parent="." instance=ExtResource( 1 )]
+position = Vector2( 516, 286 )
+mass = 8.16327
+gravity_scale = 0.0
+linear_velocity = Vector2( 0.001, 0 )
+
+[node name="Player1" parent="." instance=ExtResource( 2 )]
+position = Vector2( 117, 170 )
+
+[node name="Player2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 885, 267 )
+scale = Vector2( -2, 2 )
+script = ExtResource( 4 )
+curve = false
