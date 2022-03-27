@@ -1,12 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/fonts/bigs.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/fonts/smalls.tres" type="Theme" id=2]
 [ext_resource path="res://Scripts/Menu.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/MenuSparks.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/fonts/MomcakeBold-WyonA.otf" type="DynamicFontData" id=5]
 
 [sub_resource type="Theme" id=1]
 default_font = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 128
+font_data = ExtResource( 5 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -61,7 +66,8 @@ text = "QUIT GAME"
 margin_right = 1036.0
 margin_bottom = 277.0
 theme = SubResource( 1 )
-text = "Project Table Tennis"
+custom_fonts/font = SubResource( 2 )
+text = "Project Pong"
 align = 1
 valign = 1
 
